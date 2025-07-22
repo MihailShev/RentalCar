@@ -1,3 +1,7 @@
 export default function CarPage() {
-  return <></>;
+  return (
+    <>
+      <h1>CarPage</h1>
+    </>
+  );
 }
