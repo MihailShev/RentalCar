@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 export function getEnvVar(name, defaultValue) {
   const value = import.meta.env[name];
 

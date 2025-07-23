@@ -4,6 +4,8 @@
   justify-content: space-between;
 
   padding: 24px 0;
+  border-bottom: 1px solid #f2f4f7;
+  background-color: #f2f4f7;
 }
 
 .ul {
