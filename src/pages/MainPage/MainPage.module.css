@@ -1,0 +1,44 @@
+.hero {
+  background-image: url("/img/bg-hero.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 436px 329px 60px 328px;
+  text-align: center;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  color: #fff;
+
+  margin-bottom: 16px;
+}
+
+.text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: #fff;
+
+  margin-bottom: 40px;
+}
+
+.button {
+  background-color: #3470ff;
+
+  border-radius: 12px;
+  padding: 12px 99px;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #fff;
+}
+
+@media screen and (min-resolution: 192dpi) {
+  .hero {
+    background-image: url("/img/bg-hero@2x.webp");
+  }
+}
