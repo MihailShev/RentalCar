@@ -24,6 +24,17 @@
   color: #101828;
 
   margin-bottom: 28px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.brand {
+  margin-right: auto;
+}
+
+.rentalPrice {
+  margin-bottom: 8px;
 }
 
 .span {

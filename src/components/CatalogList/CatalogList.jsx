@@ -1,10 +1,10 @@
-import CatalogItem from "../Catalogitem/CatalogItem";
+import CatalogItem from "../Catalogitem/Catalogitem";
 import css from "./CatalogList.module.css";
+import clsx from "clsx";
 
-export default function CatalogList({ cars }) {
-  console.log(cars);
+export default function CatalogList({ boolen, cars }) {
   return (
-    <ul className={css.ul}>
+    <ul className={clsx(css.ul, { [css.active]: boolen })}>
       {cars.map(
         ({
           id,

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import css from "./CatalogItem.module.css";
+import { sliceString } from "../../utils/sliceString";
 
 export default function CatalogItem({
   id,
@@ -26,18 +27,24 @@ export default function CatalogItem({
       <img className={css.img} src={img} alt="Car photo" />
 
       <div className={css.wrap_text}>
-        <p>
+        <p className={css.brand}>
           {brand}
-          <span className={css.span}> {model}</span>, {year}
+          <span className={css.span}> {sliceString(model)}</span>, {year}
         </p>
 
-        <p>{rentalPrice}$</p>
+        <p className={css.rentalPrice}>${rentalPrice}</p>
 
         <p className={css.address}>
-          {address} | {rentalCompany} |
+          {address
+            .split(",")
+            .map((str) => str.trim())
+            .join(" | ")}
+          | {rentalCompany} |
         </p>
 
-        <p className={css.mileage}>Suv | {mileage} km</p>
+        <p className={css.mileage}>
+          Suv | {mileage.toLocaleString("uk-UA")} km
+        </p>
       </div>
 
       <button className={css.read_more} onClick={handleClick} type="button">
