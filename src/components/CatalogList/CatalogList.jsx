@@ -2,9 +2,9 @@ import CatalogItem from "../Catalogitem/Catalogitem";
 import css from "./CatalogList.module.css";
 import clsx from "clsx";
 
-export default function CatalogList({ boolen, cars }) {
+export default function CatalogList({ isEndList, cars }) {
   return (
-    <ul className={clsx(css.ul, { [css.active]: boolen })}>
+    <ul className={clsx(css.ul, { [css.active]: isEndList })}>
       {cars.map(
         ({
           id,

@@ -14,17 +14,33 @@ export default function CatalogPage() {
   const [cars, setCars] = useState([]);
   const [page, setPage] = useState(pageParam);
   const [totalPage, setTotalPage] = useState(0);
-  const [boolen, setBoolen] = useState(false);
+  const [isEndList, setIsEndList] = useState(false);
+  const [brands, setBrands] = useState([]);
+  const [filters, setFilters] = useState(null);
 
   useEffect(() => {
-    setSearchParams({ page: page.toString() });
-  }, [page, setSearchParams]);
+    const page = Number(searchParams.get("page") || 1);
+    const brand = searchParams.get("brand") || "";
+    const price = searchParams.get("price") || "";
+    const minMileage = searchParams.get("minMileage") || "";
+    const maxMileage = searchParams.get("maxMileage") || "";
+
+    const loadedFilters = { page, brand, price, minMileage, maxMileage };
+    setFilters(loadedFilters);
+  }, [searchParams]);
 
   useEffect(() => {
     try {
       const getCatalog = async () => {
         const response = await api.get("/cars", {
-          params: { page, limit: 8 },
+          params: {
+            page,
+            limit: 8,
+            brand: filters?.brand || undefined,
+            rentalPrice: filters?.price || undefined,
+            minMileage: filters?.minMileage || undefined,
+            maxMileage: filters?.maxMileage || undefined,
+          },
         });
 
         const carsData = response.data.cars;
@@ -34,13 +50,36 @@ export default function CatalogPage() {
       };
 
       if (totalPage === page) {
-        setBoolen((prew) => !prew);
+        setIsEndList((prew) => !prew);
       }
       getCatalog();
+
+      const getBrand = async () => {
+        const result = await api.get("/brands");
+        const brandsArr = result.data;
+        setBrands(brandsArr);
+      };
+
+      getBrand();
     } catch (err) {
       console.log(err.message);
     }
-  }, [page, totalPage]);
+  }, [page, totalPage, filters]);
+
+  const handleFilterSubmit = (values) => {
+    setPage(1);
+    setFilters(values);
+
+    const newParams = {
+      page: "1",
+      brand: values.brand || "",
+      price: values.price || "",
+      minMileage: values.minMileage || "",
+      maxMileage: values.maxMileage || "",
+    };
+
+    setSearchParams(newParams);
+  };
 
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
@@ -49,11 +88,19 @@ export default function CatalogPage() {
   return (
     <section className={css.catalog}>
       <div className="container">
-        <CatalogFilter />
+        <CatalogFilter
+          filters={filters}
+          brands={brands}
+          onSubmit={handleFilterSubmit}
+        />
 
-        <CatalogList boolen={boolen} cars={cars} />
+        <CatalogList isEndList={isEndList} cars={cars} />
 
-        {boolen ? "" : <LoadMoreBtn onClick={handleLoadMore} />}
+        {isEndList || cars.length === 0 ? (
+          ""
+        ) : (
+          <LoadMoreBtn onClick={handleLoadMore} />
+        )}
       </div>
     </section>
   );
