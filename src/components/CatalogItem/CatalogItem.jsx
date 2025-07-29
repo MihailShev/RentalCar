@@ -14,7 +14,7 @@ export default function CatalogItem({
   rentalCompany,
 }) {
   const navigate = useNavigate();
-  const handleClick = () => navigate(`/catalog/:${id}`);
+  const handleClick = () => navigate(`/catalog/${id}`);
 
   return (
     <div className={css.catalogItem}>

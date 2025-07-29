@@ -1,7 +1,7 @@
 export default function NotFoutd() {
   return (
     <>
-      <h1>NotFoutd</h1>
+      <h3>NotFoutd</h3>
     </>
   );
 }
